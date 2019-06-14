@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>测试test</title>
+	<script src="jquery-1.11.2.min.js"></script>
+	<style>
+		*{font-size:40px;line-height: 1.5;margin:0;padding:0;}
+
+		#last{position: fixed;left:0;bottom:0;z-index:0;background:pink;font-size:20px;}
+	</style>
+</head>
+<body>
+	<div class="" id="test">
+			这是第一页<br/>
+			这是第一页<br/>这是第一页这是第一页这是第一页这是第一页这是第一页
+			这是第一页这是第<br/>一页这是第一页<br/>这是第一页<br/>
+		<br/>	这是第一页这是第<br/>一页这是第<br/>一页这是第<br/>一页这是第<br/>一页这是
+			第一页这是第一页<br/>这是第一页<br/>这是第一页<br/>这是第一页<br/>这是第一页<br/>这是第一页
+	</div>
+	<div class="" id="last"></div>
+	<script>
+			$(function(){
+				window.addEventListener('scroll', pp,false);
+				pp()
+			})
+			var num = 0;
+			var btn = false;
+			var timer = null;
+			function pp(){
+						var w_height =  document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight 
+						var i_scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+						var h_content = $('#test').outerHeight();
+						//禁止拉动页面
+						// document.body.addEventListener('touchmove', function (e) {
+						// 	if(e.preventDefault){
+						// 		e.preventDefault();
+						// 	}else{
+						// 		window.event.returnValue == false;
+						// 	}
+						// }, false); 
+						//到底部
+						if(h_content-50 <= i_scrollTop + w_height ){							
+							if(!btn){
+								btn = true;
+								clearInterval(timer);
+								$('#last').css('color','blue')
+								timer = setTimeout(function(){
+									getData()
+								},1000)									
+							}
+													
+						}else{
+							$('#last').css('color','red');							
+						}
+						$('#last').html(h_content +'====='+i_scrollTop +'------'+ w_height +'===='+num)
+				}
+			function getData(){
+				var content = '';
+				for(let i= 0;i<10;i++){
+					content +='<div>加载---'+i+'----条</div>' 						
+				}
+				num++;
+				$('#test').append(content);	
+				btn = false;				
+			}
+	</script>
+
+</body>
+</html>
